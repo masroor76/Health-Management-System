@@ -14,3 +14,10 @@ class ListHospital(APIView):
         hospitaList = HospitalModel.objects.all()
         serializer= HospitalSerializers(hospitaList , many = True) 
         return Response(serializer.data)
+    
+
+    def post(self, request, format=None): 
+        serializer= HospitalSerializers(data = request.data)
+        if serializer.is_valid():
+            serializer.save() 
+        return Response(serializer.data)

@@ -15,3 +15,10 @@ class ListPatients(APIView):
         patientList = PatientModel.objects.all()
         serializer = PatientSerializers(patientList,many=True) 
         return Response(serializer.data)
+    
+
+    def post(self,request,format = None):
+        serializer = PatientSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+        return Response(serializer.data)
